@@ -5,6 +5,7 @@ import HomePage from './pages/Homepage/HomePage';
 import MoviePage from './pages/Movies/MoviePage';
 import MovieDetailPage from './pages/MovieDetail/MovieDetailPage';
 import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 // 홈페이지 /
@@ -12,7 +13,7 @@ import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
 // 영화 디테일 페이지 /movies/:id
 function App() {
   return (
-    <div>
+    <div className='whole'>
       <Routes>
 
 
