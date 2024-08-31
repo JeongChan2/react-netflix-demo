@@ -1,0 +1,8 @@
+.not-found {
+  font-weight: bold;
+  font-size: xx-large;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
