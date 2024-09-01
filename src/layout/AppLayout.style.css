@@ -51,3 +51,8 @@
 .navbar-container {
   margin: 0 30px;
 }
+
+.navbar-toggler-icon {
+  background-image: url("../../resources/ham.png") !important;
+  
+}
