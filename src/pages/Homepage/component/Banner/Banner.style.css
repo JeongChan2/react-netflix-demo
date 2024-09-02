@@ -20,7 +20,7 @@
   flex-direction: column;
   justify-content: center;
   height: 100%;
-  padding: 50px;
+  padding: 2rem;
 }
 
 .banner-text-area > * {
@@ -29,4 +29,15 @@
 
 .banner-text-area > p {
   margin-top: 3rem;
+}
+
+@media (max-width: 768px) {
+  .banner-text-area {
+    width: 100%;
+  }
+  .banner-text-area > p {
+    display: none;
+  }
+  
+
 }

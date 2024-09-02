@@ -53,6 +53,6 @@
 }
 
 .navbar-toggler-icon {
-  background-image: url("../../resources/ham.png") !important;
+  background-image: url("./ham.png") !important;
   
 }

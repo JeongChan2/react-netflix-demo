@@ -1,0 +1,8 @@
+.carousel-container {
+  overflow: hidden;
+  height: 440px;
+}
+
+.color-white {
+  color: rgba(255, 255, 255, 0.74);
+}
