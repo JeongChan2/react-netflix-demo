@@ -1,11 +1,18 @@
 import React from "react";
 import { Badge } from "react-bootstrap";
 import './MovieCard.style.css';
-import { Rating, Stack } from "@mui/material";
+import { Alert, Rating, Stack } from "@mui/material";
+import { useGenresListMoviesQuery } from "../../hooks/useGenresListMovies";
 
 
-const MovieCard = ({movie, genresList}) => {
-  // console.log(genresList)
+const MovieCard = ({movie}) => {
+  const { data:genresList, isLoading, isError, error } = useGenresListMoviesQuery();
+  if (isLoading) {
+    return <h1>Loading...</h1>;
+  }
+  if (isError) {
+    return <Alert variant="danger">{error.message}</Alert>;
+  }
   
   return (
     <div

@@ -21,7 +21,7 @@ const responsive = {
   }
 };
 
-const MovieSlider = ({subTitle, movies, genresList}) => {
+const MovieSlider = ({subTitle, movies}) => {
   return (
     <div>
       <h3 className="color-white">{subTitle}</h3>
@@ -32,7 +32,7 @@ const MovieSlider = ({subTitle, movies, genresList}) => {
         containerClass="carousel-container"
         responsive={responsive}
       >
-        {movies.map((movie,index)=><MovieCard movie={movie} key={index} genresList={genresList}/>)}
+        {movies.map((movie,index)=><MovieCard movie={movie} key={index} />)}
         
       </Carousel>
     </div>

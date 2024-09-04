@@ -13,19 +13,13 @@ import { Alert } from 'bootstrap';
 // 3. top rated movie
 // 4. upcoming movie
 const HomePage = () => {
-  const { data, isLoading, isError, error } = useGenresListMoviesQuery();
-  if (isLoading) {
-    return <h1>Loading...</h1>;
-  }
-  if (isError) {
-    return <Alert variant="danger">{error.message}</Alert>;
-  }
+  
   return (
     <div>
       <Banner/>
-      <MovieSlide usehook={usePopularMoviesQuery} subTitle={'Popular Movies'} genresList={data}/>
-      <MovieSlide usehook={useTopRatedMoviesQuery} subTitle={'Top Rated Movies'} genresList={data}/>
-      <MovieSlide usehook={useUpComingMoviesQuery} subTitle={'Upcoming Movies'} genresList={data}/>
+      <MovieSlide usehook={usePopularMoviesQuery} subTitle={'Popular Movies'} />
+      <MovieSlide usehook={useTopRatedMoviesQuery} subTitle={'Top Rated Movies'}/>
+      <MovieSlide usehook={useUpComingMoviesQuery} subTitle={'Upcoming Movies'}/>
     </div>
   )
 }
