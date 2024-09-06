@@ -32,7 +32,7 @@ const MoviePage = () => {
     <Container>
       <Row>
         <Col lg={4} xs={12}>
-          {genreList.genres.map((id,index) => {
+          {genreList?.genres.map((id,index) => {
             console.log((id.id))
             return <Badge onClick={() => setGenre(id.id)} className="genre-button" bg="danger" key={index}>{id.name}</Badge>
           })}
@@ -44,7 +44,7 @@ const MoviePage = () => {
           ) : (
             <>
               <Row>
-                {genre?(data.results.filter((movie) => {
+                {genre?(data?.results.filter((movie) => {
                     return (
                       movie.genre_ids.includes(genre)
                     );
@@ -58,7 +58,7 @@ const MoviePage = () => {
                     </Col>
                     )
 
-              }):data.results.map((movie, index) => {
+              }):data?.results.map((movie, index) => {
               
                   return (
                     <Col key={index} lg={4} xs={12}>
