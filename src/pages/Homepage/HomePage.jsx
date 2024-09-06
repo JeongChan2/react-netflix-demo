@@ -4,8 +4,7 @@ import MovieSlide from './component/MovieSlide/MovieSlide'
 import { usePopularMoviesQuery } from '../../hooks/usePopularMovies'
 import { useTopRatedMoviesQuery } from './../../hooks/useTopRatedMovies';
 import { useUpComingMoviesQuery } from './../../hooks/useUpComingMovies';
-import { useGenresListMoviesQuery } from '../../hooks/useGenresListMovies';
-import { Alert } from 'bootstrap';
+
 
 
 // 1. 배너 => popular movie 첫번째
