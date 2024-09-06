@@ -1,28 +1,46 @@
 import React from "react";
 import "./MovieDetailPage.style.css";
 import { Badge, Button, Col, Container, Row, Stack } from "react-bootstrap";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useMovieDetailsQuery } from "../../hooks/useMovieDetails";
 import { Alert, Rating } from "@mui/material";
 
 const MovieDetailPage = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const {
     data: movie,
     isLoading,
     isError,
     error,
   } = useMovieDetailsQuery({ id });
+
+
+  const toMovieReviewsPage = (id, event) => {
+    event.preventDefault();
+    navigate(`/movies/${id}/reviews`);
+
+  }
+
+
+
+
+
   if (isLoading) {
     return <h1>Loading...</h1>;
   }
   if (isError) {
     return <Alert variant="danger">{error.message}</Alert>;
   }
+
+  if (!movie) {
+    return <h1>No movie data available</h1>;
+  }
+
   return (
     <>
       <Row>
-        <Col>
+        <Col lg={6} xs={12}>
           <div
             style={{
               backgroundImage: `url(https://media.themoviedb.org/t/p/original/${movie?.poster_path})`,
@@ -44,7 +62,7 @@ const MovieDetailPage = () => {
                       readOnly
                     />
                   </Stack>
-                  <Button variant="danger">리뷰</Button>
+                  <Button variant="danger" onClick={(event) => toMovieReviewsPage(movie.id, event)}>리뷰</Button>
                 </div>
                 <div className="display-flex">
                   연령　
@@ -56,13 +74,15 @@ const MovieDetailPage = () => {
                 </div>
                 <div className="display-flex">
                   장르　
-                  {movie?.genres.map((genre, index) => {
-                    return (
+                  {movie.genres && movie.genres.length > 0 ? (
+                    movie.genres.map((genre, index) => (
                       <Badge className="overlay-genres" bg="danger" key={index}>
                         {genre.name}
                       </Badge>
-                    );
-                  })}
+                    ))
+                  ) : (
+                    <span>No genres available</span> // 장르가 없을 경우
+                  )}
                 </div>
                 <div className="display-flex">
                   시간　
@@ -73,7 +93,7 @@ const MovieDetailPage = () => {
           </div>
         </Col>
 
-        <Col>hihihi</Col>
+        <Col lg={6} xs={12}>hihihi</Col>
       </Row>
     </>
   );

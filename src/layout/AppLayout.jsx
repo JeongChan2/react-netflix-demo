@@ -23,11 +23,16 @@ const AppLayout = () => {
     setKeyword("");
   }
 
+  const handleNavigation = (event, path) => {
+    event.preventDefault();
+    navigate(path);
+  };
+
   return (
     <div className="navbar-container">
       <Navbar expand="lg" className="bg-body-tertiary">
         <Container fluid className="navbar-container">
-          <Navbar.Brand href="/" className="logo-brand"><img alt="" src="https://images.ctfassets.net/4cd45et68cgf/4nBnsuPq03diC5eHXnQYx/d48a4664cdc48b6065b0be2d0c7bc388/Netflix-Logo.jpg"/></Navbar.Brand>
+          <Navbar.Brand href="/" onClick={(e) => handleNavigation(e, '/')} className="logo-brand"><img alt="" src="https://images.ctfassets.net/4cd45et68cgf/4nBnsuPq03diC5eHXnQYx/d48a4664cdc48b6065b0be2d0c7bc388/Netflix-Logo.jpg"/></Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
             <Nav
@@ -35,8 +40,8 @@ const AppLayout = () => {
               style={{ maxHeight: "100px" }}
               navbarScroll
             >
-              <Nav.Link href="/">Home</Nav.Link>
-              <Nav.Link href="/movies">Movies</Nav.Link>
+              <Nav.Link href="/" onClick={(e) => handleNavigation(e, '/')}>Home</Nav.Link>
+              <Nav.Link href="/movies" onClick={(e) => handleNavigation(e, '/movies')}>Movies</Nav.Link>
 
             </Nav>
             <Form className="d-flex" onSubmit={searchByKeyword}>

@@ -1,7 +1,33 @@
-.color-white {
+.review-container {
   color: white;
-  text-align: center;
+}
+
+.profile-img {
+  width: 60px;
+  height: 60px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-radius: 50%;
+}
+
+.reviews-title {
+  font-weight: 900;
   font-size: 3rem;
+}
+
+.review {
+  display: flex;
+  margin-top: 3rem;
+  border-bottom: 1px solid lightcoral;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+}
+
+.review-author {
+  margin-left: 1rem;
+  height: 60px;
+  display: flex;
+  align-items: center;
 }
 
 .pagination {

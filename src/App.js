@@ -6,6 +6,7 @@ import MoviePage from './pages/Movies/MoviePage';
 import MovieDetailPage from './pages/MovieDetail/MovieDetailPage';
 import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import MovieReviewsPage from './pages/MovieReviews/MovieReviewsPage';
 
 
 // 홈페이지 /
@@ -25,7 +26,10 @@ function App() {
 
           <Route path='movies'>
             <Route index element={<MoviePage/>}/>
-            <Route path=':id' element={<MovieDetailPage/>}/>
+            <Route path=':id'>
+              <Route index element={<MovieDetailPage/>}/>
+              <Route path='reviews' element={<MovieReviewsPage/>}/>
+            </Route>
           </Route>
 
 
