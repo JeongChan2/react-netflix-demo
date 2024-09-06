@@ -5,7 +5,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useMovieDetailsQuery } from "../../hooks/useMovieDetails";
 import { Alert, Rating } from "@mui/material";
 import { useRecommendationMoviesQuery } from "./../../hooks/useRecommendMovies";
-import ReactPaginate from "react-paginate";
 import MovieCard from './../../common/MovieCard/MovieCard';
 
 const MovieDetailPage = () => {

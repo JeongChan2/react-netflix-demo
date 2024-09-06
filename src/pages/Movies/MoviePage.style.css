@@ -49,3 +49,11 @@
 .break-link {
   color: #999;
 }
+
+.genre-button {
+  cursor: pointer;
+  margin: 1rem;
+  width: 100px;
+  height: 50px;
+  font-size: 1.15rem !important;
+}
