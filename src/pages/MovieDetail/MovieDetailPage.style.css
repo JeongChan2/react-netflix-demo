@@ -111,3 +111,26 @@
 .display-flex {
   display: flex;
 }
+
+.recommend-board {
+  height: 90vh;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+.width80 {
+  width: 80%;
+}
+
+@media screen and (max-width: 600px) {
+  .content-p {
+    display: none;
+  }
+  .content-release{
+    display: none;
+  }
+  .content-h2 {
+    font-size: 2rem;
+    width: 90%;
+  }
+}

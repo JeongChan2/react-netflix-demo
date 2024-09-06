@@ -6,7 +6,7 @@ import { useGenresListMoviesQuery } from "../../hooks/useGenresListMovies";
 import { useNavigate } from "react-router-dom";
 
 
-const MovieCard = ({movie}) => {
+const MovieCard = ({movie, size}) => {
   const { data:genresList, isLoading, isError, error } = useGenresListMoviesQuery();
   const navigate = useNavigate();
 
@@ -29,7 +29,7 @@ const MovieCard = ({movie}) => {
       style={{
         backgroundImage: `url(https://media.themoviedb.org/t/p/original/${movie?.poster_path})`,
       }}
-      className="movie-card"
+      className={`movie-card ${size}`}
     >
       <div className="overlay">
         <h2>{movie?.title}</h2>

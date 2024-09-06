@@ -1,13 +1,18 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./MovieDetailPage.style.css";
-import { Badge, Button, Col, Container, Row, Stack } from "react-bootstrap";
+import { Badge, Button, Col, Row, Stack } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import { useMovieDetailsQuery } from "../../hooks/useMovieDetails";
 import { Alert, Rating } from "@mui/material";
+import { useRecommendationMoviesQuery } from "./../../hooks/useRecommendMovies";
+import ReactPaginate from "react-paginate";
+import MovieCard from './../../common/MovieCard/MovieCard';
 
 const MovieDetailPage = () => {
+  const [page, setPage] = useState(1);
   const { id } = useParams();
   const navigate = useNavigate();
+
   const {
     data: movie,
     isLoading,
@@ -15,25 +20,37 @@ const MovieDetailPage = () => {
     error,
   } = useMovieDetailsQuery({ id });
 
+  const {
+    data: recMovies,
+    isLoading: recIsLoading,
+    isError: recIsError,
+    error: recError,
+  } = useRecommendationMoviesQuery({ id, page });
 
   const toMovieReviewsPage = (id, event) => {
     event.preventDefault();
     navigate(`/movies/${id}/reviews`);
+  };
 
-  }
+  const handlePageClick = ({ selected }) => {
+    setPage(selected + 1);
+  };
 
+  useEffect(() => {
+    setPage(1);
+  }, [id]);
 
-
-
-
-  if (isLoading) {
+  if (isLoading || recIsLoading) {
     return <h1>Loading...</h1>;
   }
   if (isError) {
     return <Alert variant="danger">{error.message}</Alert>;
   }
+  if (recIsError) {
+    return <Alert variant="danger">{recError.message}</Alert>;
+  }
 
-  if (!movie) {
+  if (!movie || !recMovies) {
     return <h1>No movie data available</h1>;
   }
 
@@ -62,7 +79,12 @@ const MovieDetailPage = () => {
                       readOnly
                     />
                   </Stack>
-                  <Button variant="danger" onClick={(event) => toMovieReviewsPage(movie.id, event)}>리뷰</Button>
+                  <Button
+                    variant="danger"
+                    onClick={(event) => toMovieReviewsPage(movie.id, event)}
+                  >
+                    리뷰
+                  </Button>
                 </div>
                 <div className="display-flex">
                   연령　
@@ -72,7 +94,7 @@ const MovieDetailPage = () => {
                     <img alt="" src="/resources/all.png" />
                   )}
                 </div>
-                <div className="display-flex">
+                <div className="display-flex width80">
                   장르　
                   {movie.genres && movie.genres.length > 0 ? (
                     movie.genres.map((genre, index) => (
@@ -92,8 +114,44 @@ const MovieDetailPage = () => {
             </div>
           </div>
         </Col>
-
-        <Col lg={6} xs={12}>hihihi</Col>
+<Col lg={1} xs={0}></Col>
+        <Col lg={5} xs={12}>
+        <div className="recommend-board">
+          {recMovies?.results.length === 0 ? (
+            <div className="color-white">결과 없음</div>
+          ) : (
+            <>
+              <Row>
+                {recMovies?.results.map((movie, index) => (
+                  <Col key={index} lg={6} xs={6}>
+                    <MovieCard movie={movie} size="detail"/>
+                  </Col>
+                ))}
+              </Row>
+              {/**<ReactPaginate
+                nextLabel="next >"
+                onPageChange={handlePageClick}
+                pageRangeDisplayed={3}
+                marginPagesDisplayed={2}
+                pageCount={recMovies?.total_pages}
+                forcePage={page - 1}
+                previousLabel="< previous"
+                pageClassName="page-item"
+                pageLinkClassName="page-link"
+                previousClassName="page-item"
+                previousLinkClassName="page-link"
+                nextClassName="page-item"
+                nextLinkClassName="page-link"
+                breakLabel="..."
+                breakClassName="page-item"
+                breakLinkClassName="break-link"
+                containerClassName="pagination"
+                activeClassName="active"
+              />*/}
+            </>
+          )}
+          </div>
+        </Col>
       </Row>
     </>
   );

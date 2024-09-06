@@ -7,7 +7,7 @@ const fetchMovieReviews=({id, page})=>{
 
 export const useMovieReviewsQuery = ({id, page}) => {
   return useQuery({
-    queryKey:['movie-reviews'],
+    queryKey:['movie-reviews', {id, page}],
     queryFn:() => fetchMovieReviews({id, page}),
     select:(result)=>result.data,
   })
