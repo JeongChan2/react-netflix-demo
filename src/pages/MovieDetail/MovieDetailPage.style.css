@@ -122,6 +122,19 @@
   width: 80%;
 }
 
+.content-others button {
+  margin-left: 1rem;
+}
+
+.modal-content {
+  background-color: rgb(51, 51, 51) !important;
+}
+
+.modal-header {
+  border-bottom: none !important;
+  color: white;
+}
+
 @media screen and (max-width: 600px) {
   .content-p {
     display: none;

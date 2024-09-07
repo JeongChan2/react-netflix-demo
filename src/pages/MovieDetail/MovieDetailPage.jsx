@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from "react";
 import "./MovieDetailPage.style.css";
-import { Badge, Button, Col, Row, Stack } from "react-bootstrap";
+import { Badge, Button, Col, Modal, Row, Stack } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import { useMovieDetailsQuery } from "../../hooks/useMovieDetails";
 import { Alert, Rating } from "@mui/material";
 import { useRecommendationMoviesQuery } from "./../../hooks/useRecommendMovies";
-import MovieCard from './../../common/MovieCard/MovieCard';
+import MovieCard from "./../../common/MovieCard/MovieCard";
+import YouTube from "react-youtube";
+import { useMovieTrailerQuery } from './../../hooks/useMovieTrailer';
 
 const MovieDetailPage = () => {
   const [page, setPage] = useState(1);
+  const [lgShow, setLgShow] = useState(false);
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -26,20 +29,29 @@ const MovieDetailPage = () => {
     error: recError,
   } = useRecommendationMoviesQuery({ id, page });
 
+  const {
+    data: trailer,
+    isLoading: trailerIsLoading,
+    isError: trailerIsError,
+    error: trailerError,
+  } = useMovieTrailerQuery({ id });
+
+  console.log(trailer)
+
   const toMovieReviewsPage = (id, event) => {
     event.preventDefault();
     navigate(`/movies/${id}/reviews`);
   };
 
-  const handlePageClick = ({ selected }) => {
-    setPage(selected + 1);
-  };
+  // const handlePageClick = ({ selected }) => {
+  //   setPage(selected + 1);
+  // };
 
   useEffect(() => {
     setPage(1);
   }, [id]);
 
-  if (isLoading || recIsLoading) {
+  if (isLoading || recIsLoading || trailerIsLoading) {
     return <h1>Loading...</h1>;
   }
   if (isError) {
@@ -47,6 +59,9 @@ const MovieDetailPage = () => {
   }
   if (recIsError) {
     return <Alert variant="danger">{recError.message}</Alert>;
+  }
+  if (trailerIsError) {
+    return <Alert variant="danger">{trailerError.message}</Alert>;
   }
 
   if (!movie || !recMovies) {
@@ -84,6 +99,9 @@ const MovieDetailPage = () => {
                   >
                     리뷰
                   </Button>
+                  <Button variant="danger" onClick={() => setLgShow(true)}>
+                    예고편
+                  </Button>
                 </div>
                 <div className="display-flex">
                   연령　
@@ -111,23 +129,51 @@ const MovieDetailPage = () => {
                 </div>
               </div>
             </div>
+            {/** 예고편 팝업 modal */}
+            <Modal
+              size="lg"
+              show={lgShow}
+              onHide={() => setLgShow(false)}
+              aria-labelledby="example-modal-sizes-title-lg"
+            >
+              <Modal.Header closeButton>
+                <Modal.Title id="example-modal-sizes-title-lg">
+                  {trailer.name}
+                </Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <YouTube
+                  videoId={trailer.key} //동영상 주소
+                  opts={{
+                    width: "100%",
+                    height: "500px",
+                    playerVars: {
+                      autoplay: 1, //자동 재생 여부
+                    },
+                  }}
+                  onReady={(e) => {
+                    // e.target.mute();
+                  }}
+                />
+              </Modal.Body>
+            </Modal>
           </div>
         </Col>
-<Col lg={1} xs={0}></Col>
+        <Col lg={1} xs={0}></Col>
         <Col lg={5} xs={12}>
-        <div className="recommend-board">
-          {recMovies?.results.length === 0 ? (
-            <div className="color-white">결과 없음</div>
-          ) : (
-            <>
-              <Row>
-                {recMovies?.results.map((movie, index) => (
-                  <Col key={index} lg={6} xs={6}>
-                    <MovieCard movie={movie} size="detail"/>
-                  </Col>
-                ))}
-              </Row>
-              {/**<ReactPaginate
+          <div className="recommend-board">
+            {recMovies?.results.length === 0 ? (
+              <div className="color-white">결과 없음</div>
+            ) : (
+              <>
+                <Row>
+                  {recMovies?.results.map((movie, index) => (
+                    <Col key={index} lg={6} xs={6}>
+                      <MovieCard movie={movie} size="detail" />
+                    </Col>
+                  ))}
+                </Row>
+                {/**<ReactPaginate
                 nextLabel="next >"
                 onPageChange={handlePageClick}
                 pageRangeDisplayed={3}
@@ -147,8 +193,8 @@ const MovieDetailPage = () => {
                 containerClassName="pagination"
                 activeClassName="active"
               />*/}
-            </>
-          )}
+              </>
+            )}
           </div>
         </Col>
       </Row>
