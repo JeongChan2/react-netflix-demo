@@ -56,4 +56,22 @@
   width: 100px;
   height: 50px;
   font-size: 1.15rem !important;
+  transition: 0.1s ease-in-out,
+}
+
+.popularity-button {
+  cursor: pointer;
+  margin: 1rem;
+  width: 200px;
+  height: 50px;
+  font-size: 1.15rem !important;
+  transition: 0.1s ease-in-out,
+}
+
+.genre-button:hover {
+  transform: scale(1.2);
+}
+
+.popularity-button:hover {
+  transform: scale(1.2);
 }
