@@ -113,10 +113,10 @@ const MovieDetailPage = () => {
                 </div>
                 <div className="display-flex width80">
                   장르　
-                  {movie.genres && movie.genres.length > 0 ? (
-                    movie.genres.map((genre, index) => (
+                  {movie?.genres && movie?.genres.length > 0 ? (
+                    movie?.genres.map((genre, index) => (
                       <Badge className="overlay-genres" bg="danger" key={index}>
-                        {genre.name}
+                        {genre?.name}
                       </Badge>
                     ))
                   ) : (
@@ -138,12 +138,12 @@ const MovieDetailPage = () => {
             >
               <Modal.Header closeButton>
                 <Modal.Title id="example-modal-sizes-title-lg">
-                  {trailer.name}
+                  {trailer?.name}
                 </Modal.Title>
               </Modal.Header>
               <Modal.Body>
                 <YouTube
-                  videoId={trailer.key} //동영상 주소
+                  videoId={trailer?.key} //동영상 주소
                   opts={{
                     width: "100%",
                     height: "500px",
