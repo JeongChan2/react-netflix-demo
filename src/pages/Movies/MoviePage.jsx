@@ -68,7 +68,7 @@ const MoviePage = () => {
 
               })}
               </Row>
-              <ReactPaginate
+              {!genre && (<ReactPaginate
                 nextLabel="next >"
                 onPageChange={handlePageClick}
                 pageRangeDisplayed={3}
@@ -87,7 +87,7 @@ const MoviePage = () => {
                 breakLinkClassName="break-link"
                 containerClassName="pagination"
                 activeClassName="active"
-              />
+              />)}
             </>
           )}
         </Col>
